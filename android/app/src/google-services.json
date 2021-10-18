@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "769060637461",
+    "project_id": "openaccess-sales-app",
+    "storage_bucket": "openaccess-sales-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:769060637461:android:b549719ecbc44a56bd371c",
+        "android_client_info": {
+          "package_name": "com.openaccess.salesapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "769060637461-6u9l5k7bke32ug2ql6bkvnvfsekp6mtu.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.openaccess.salesapp",
+            "certificate_hash": "9092489f8db18a1d32bd2146890e17d7a5f83ed5"
+          }
+        },
+        {
+          "client_id": "769060637461-sn7hd1ohi972o7g1uk3hr99mlnapvlu8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBkHG3rsZ64ymhXiD3A8iMlw67EbtmCtTk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "769060637461-sn7hd1ohi972o7g1uk3hr99mlnapvlu8.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
