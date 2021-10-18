@@ -13,14 +13,29 @@ class TodoController extends GetxController {
     getTodoList();
   }
 
+  removeTodo(String id) async {
+    Response response = await ApiController().removeTodo(id: id);
+    print(response.statusCode);
+    if (response.statusCode == 200) {
+      print('before delete');
+      todos.removeWhere((element) => element.id == int.parse(id));
+      update(['todo-list']);
+      print('after delete');
+    } else {
+      throw Exception('Failed to delete todo');
+    }
+  }
+
   getTodoList() async {
     todoIsFetching.value = true;
     Response response = await ApiController().getTodo();
     if (response.statusCode == 200) {
       todoIsFetching.value = false;
-      return todos.value = ((response.body) as List)
+      todos.value = ((response.body) as List)
           .map((json) => TodoModel.fromJson(json))
           .toList();
+      update(['todo-list']);
+      return;
     }
 
     Get.defaultDialog(

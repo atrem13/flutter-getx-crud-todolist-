@@ -16,6 +16,7 @@ class TodoCreatePage extends GetView<TodoCreateController> {
         child: Column(
           children: [
             TextFormField(
+              controller: controller.titleController,
               decoration: InputDecoration(
                 hintText: "Yours is my focus today",
                 labelText: "Your focus",
@@ -27,7 +28,12 @@ class TodoCreatePage extends GetView<TodoCreateController> {
             SizedBox(
               height: 20,
             ),
-            ElevatedButton(onPressed: () {}, child: Text("Submit"))
+            ElevatedButton(
+              onPressed: (controller.todoEdit == null)
+                  ? controller.createTodo
+                  : controller.updateTodo,
+              child: Text("Submit"),
+            )
           ],
         ),
       ),

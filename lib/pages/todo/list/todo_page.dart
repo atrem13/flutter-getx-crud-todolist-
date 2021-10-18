@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:openaccess/components/SkeletonLoading.dart';
 import 'package:openaccess/pages/todo/create/todo_create_page.dart';
 import './todo_controller.dart';
+import 'package:openaccess/models/TodoModel.dart';
 
 class TodoPage extends GetView<TodoController> {
   static const route = "/todo-page";
@@ -16,12 +17,13 @@ class TodoPage extends GetView<TodoController> {
       body: SingleChildScrollView(
         child: Padding(
           padding: EdgeInsets.only(top: 20, right: 20, left: 20),
-          child: Obx(
-            () => Column(
+          child: GetBuilder<TodoController>(
+            id: 'todo-list',
+            builder: (controller) => Column(
               children: controller.todoIsFetching.value
                   ? skeleton
                   : controller.todos.value
-                      .map((e) => todoItem(title: "${e.title}"))
+                      .map((e) => todoItem(model: e))
                       .toList(),
             ),
           ),
@@ -37,7 +39,7 @@ class TodoPage extends GetView<TodoController> {
   }
 
   Widget todoItem({
-    required String title,
+    required TodoModel model,
   }) {
     return Row(
       children: [
@@ -45,7 +47,7 @@ class TodoPage extends GetView<TodoController> {
           fit: FlexFit.tight,
           flex: 2,
           child: Container(
-            child: Text("$title"),
+            child: Text("${model.title}"),
           ),
         ),
         Flexible(
@@ -56,7 +58,9 @@ class TodoPage extends GetView<TodoController> {
             children: [
               IconButton(
                 onPressed: () {
-                  print("Edit");
+                  Get.toNamed(TodoCreatePage.route, arguments: {
+                    'todo': model,
+                  });
                 },
                 icon: Icon(
                   Icons.edit,
@@ -65,7 +69,7 @@ class TodoPage extends GetView<TodoController> {
               ),
               IconButton(
                 onPressed: () {
-                  print("Remove");
+                  controller.removeTodo('${model.id}');
                 },
                 icon: Icon(
                   Icons.delete,

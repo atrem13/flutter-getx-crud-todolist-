@@ -11,4 +11,13 @@ class ApiController extends GetConnect {
   }
 
   getTodo() => get('/posts');
+  postTodo({required String title}) => post('/posts', {
+        'title': title,
+      });
+  updateTodo({required String title, required String id}) =>
+      patch('/posts/${id}', {
+        'title': title,
+      });
+
+  removeTodo({required String id}) => delete('/posts/${id}');
 }
