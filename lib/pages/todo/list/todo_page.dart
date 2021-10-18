@@ -13,6 +13,17 @@ class TodoPage extends GetView<TodoController> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('TodoPage'),
+        actions: <Widget>[
+          Padding(
+            padding: EdgeInsets.only(right: 20.0),
+            child: GestureDetector(
+              onTap: () {
+                Get.toNamed(TodoCreatePage.route);
+              },
+              child: Icon(Icons.add),
+            ),
+          ),
+        ],
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -29,12 +40,12 @@ class TodoPage extends GetView<TodoController> {
           ),
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Get.toNamed(TodoCreatePage.route);
-        },
-        child: Icon(Icons.add),
-      ),
+      // floatingActionButton: FloatingActionButton(
+      //   onPressed: () {
+      //     Get.toNamed(TodoCreatePage.route);
+      //   },
+      //   child: Icon(Icons.add),
+      // ),
     );
   }
 

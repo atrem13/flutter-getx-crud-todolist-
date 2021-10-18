@@ -8,22 +8,72 @@ class TodoController extends GetxController {
   var todoIsFetching = false.obs;
   @override
   void onInit() {
-    // TODO: implement onInit
     super.onInit();
     getTodoList();
   }
 
+  showAlert(String text) {
+    Get.defaultDialog(
+      title: "Information",
+      content: Center(
+        child: Column(
+          children: [
+            Text('${text}'),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                TextButton(
+                  onPressed: () {
+                    Get.back();
+                  },
+                  child: Text('ok'),
+                )
+              ],
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
   removeTodo(String id) async {
-    Response response = await ApiController().removeTodo(id: id);
-    print(response.statusCode);
-    if (response.statusCode == 200) {
-      print('before delete');
-      todos.removeWhere((element) => element.id == int.parse(id));
-      update(['todo-list']);
-      print('after delete');
-    } else {
-      throw Exception('Failed to delete todo');
-    }
+    Get.defaultDialog(
+      title: "Warning",
+      content: Center(
+        child: Column(
+          children: [
+            Text('are you sure want to remove data?'),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                TextButton(
+                  onPressed: () {
+                    Get.back();
+                  },
+                  child: Text('Cancel'),
+                ),
+                TextButton(
+                  onPressed: () async {
+                    Response response =
+                        await ApiController().removeTodo(id: id);
+                    if (response.statusCode == 200) {
+                      todos.removeWhere(
+                          (element) => element.id == int.parse(id));
+                      update(['todo-list']);
+                      Get.back();
+                      showAlert('Data deleted successfully');
+                    } else {
+                      throw Exception('Failed to delete todo');
+                    }
+                  },
+                  child: Text('Delete'),
+                ),
+              ],
+            ),
+          ],
+        ),
+      ),
+    );
   }
 
   getTodoList() async {

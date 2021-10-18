@@ -8,6 +8,7 @@ class TodoCreateController extends GetxController {
   TextEditingController titleController = TextEditingController();
   TodoController todoController = Get.find<TodoController>();
   TodoModel? todoEdit;
+  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
   onInit() {
     super.onInit();
@@ -16,6 +17,13 @@ class TodoCreateController extends GetxController {
       todoEdit = args['todo'];
       titleController.text = '${todoEdit?.title}';
     }
+  }
+
+  String? validator(String? value) {
+    if (value == '') {
+      return 'Please this field must be filled';
+    }
+    return '';
   }
 
   createTodo() async {
@@ -28,6 +36,7 @@ class TodoCreateController extends GetxController {
       ];
       todoController.update(['todo-list']);
       Get.back();
+      todoController.showAlert('Data updated successfully');
     } else {
       throw Exception('Failed to create todo');
     }
@@ -42,6 +51,7 @@ class TodoCreateController extends GetxController {
       todoController.update(['todo-list']);
       todoController.todos.refresh();
       Get.back();
+      todoController.showAlert('Data updated successfully');
     } else {
       throw Exception('Failed to create todo');
     }
