@@ -1,6 +1,6 @@
 
 
-## 1.1. Getting Started
+Getting Started
 
 Project ini dibangun menggunakan flutter
 
