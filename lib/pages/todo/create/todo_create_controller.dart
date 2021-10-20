@@ -37,8 +37,10 @@ class TodoCreateController extends GetxController {
   updateTodo() async {
     Response response = await ApiController()
         .updateTodo(title: titleController.text, id: '${todoEdit?.id}');
-    if (response.statusCode == 201) {
-      todoEdit = TodoModel.fromJson(response.body);
+    print(response.body);
+    if (response.statusCode == 200) {
+      // todoEdit = TodoModel.fromJson(response.body);
+      todoEdit?.title = titleController.text;
       // todoController.todos.value = [
       //   ...todoController.todos.value,
       //   TodoModel.fromJson(response.body)
@@ -47,7 +49,7 @@ class TodoCreateController extends GetxController {
       Get.back();
       todoController.showAlert('Data updated successfully');
     } else {
-      throw Exception('Failed to create todo');
+      throw Exception('Failed to update todo');
     }
   }
 }
